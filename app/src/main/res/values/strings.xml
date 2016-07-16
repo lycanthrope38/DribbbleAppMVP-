@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DribbbleApp</string>
+    <string name="app_menu">LeKhacThong</string>
+
+
+    <string name="navigation_title">Dribbble App</string>
+    <string name="main_empty_data">Empty Data</string>
+    <string name="menu_web_refresh">Refresh</string>
+    <string name="menu_web_copy">Coppy</string>
+    <string name="menu_web_share">Share</string>
+    <string name="menu_web_horizontal">Rotation</string>
+    <string name="link_github">Github</string>
+    <string name="main">Main Content</string>
+    <string name="copy_success">Coppy Success</string>
+    <string name="go_back_tip">Back</string>
+
+</resources>

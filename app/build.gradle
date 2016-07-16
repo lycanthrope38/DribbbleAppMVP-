@@ -1,0 +1,116 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply from: '../config/dependencies.gradle'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+android {
+    compileSdkVersion app.compileSdk
+    buildToolsVersion app.buildTools
+
+    compileOptions.encoding = 'UTF-8' // write your encoding here
+
+    defaultConfig {
+        applicationId app.applicationId
+        vectorDrawables.useSupportLibrary = true
+        minSdkVersion app.minSdk
+        targetSdkVersion app.targetSdk
+        versionCode app.code
+        versionName app.name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'
+        //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
+    }
+
+    retrolambda {
+        jvmArgs '-noverify'
+    }
+}
+
+dependencies {
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    // Reactive
+    compile libraries.rxJava
+    compile libraries.rxAndroid
+
+    //support libraries
+    compile libraries.supportAppCompat
+    compile libraries.supportDesign
+    compile libraries.supportRecyclerView
+    compile libraries.supportCardView
+
+    //utils
+    compile libraries.butterKnife
+    compile libraries.timber
+    // Dagger 2
+    compile libraries.dagger
+    apt libraries.daggerCompiler
+
+    // Retrofit
+    compile libraries.retrofit
+    compile libraries.retrofitJacksonConverter
+    compile libraries.retrofitRxJavaAdapter
+    compile libraries.retrofitGsonConverter
+    compile(libraries.retrofitSimpleXmlConverter) {
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
+
+    //Gilde
+    compile libraries.glide
+
+    //EventBus
+    compile libraries.eventbus
+
+    // debug tools
+    compile libraries.okHttpLoggingInterceptor
+
+    compile libraries.swipeBackActivity
+
+    compile libraries.parceler
+
+    testCompile libraries.junit
+    testCompile libraries.robolectric
+    testCompile libraries.assertJ
+    testCompile libraries.equalsVerifier
+    testCompile libraries.mockitoCore
+    testCompile 'junit:junit:4.12'
+    apt 'org.parceler:parceler:1.1.1'
+    provided 'javax.annotation:jsr250-api:1.0'
+}

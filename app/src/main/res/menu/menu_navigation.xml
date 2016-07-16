@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_sub_setting"
+        android:title="@string/app_menu" />
+    <item
+        android:id="@+id/navigation_title"
+        android:title="@string/navigation_title">
+        <menu>
+            <item
+                android:id="@+id/navigation_main"
+                android:checked="true"
+                android:icon="@drawable/ic_reorder_black_24dp"
+                android:title="@string/main" />
+
+            <item
+                android:id="@+id/navigation_github"
+                android:checked="true"
+                android:icon="@drawable/ic_cloud_black_24dp"
+                android:title="@string/link_github" />
+
+        </menu>
+    </item>
+</menu>
